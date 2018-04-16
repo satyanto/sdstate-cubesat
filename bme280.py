@@ -36,8 +36,8 @@ for x in range(0,3):
         break
 
 loopcounter = 0
-DataName = "BME280"+str(cur)
-DataFile = open(str(DataName).csv, "a")
+DataName = "BME280"+str(cur)+".csv"
+DataFile = open(DataName, "a")
 DataFile.write("Time,Iteration,Temperature,Pressure,Humidity,Altitude")
 
 #Loop Receive Data
