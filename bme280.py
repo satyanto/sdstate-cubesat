@@ -1,3 +1,4 @@
+import time
 from datetime import datetime
 
 counterfile = open("bme280counter.txt","r")
