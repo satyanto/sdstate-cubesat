@@ -4,7 +4,7 @@ counterfile = open("bme280counter.txt","r")
 cur = counterfile.read()
 newcur = int(cur)+1
 newcounterfile = open("bme280counter.txt","w")
-newcounterfile.write(int(newcur))
+newcounterfile.write(str(newcur))
 
 
 #Initialization
