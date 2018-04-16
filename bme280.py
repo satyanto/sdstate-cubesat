@@ -2,9 +2,9 @@ from datetime import datetime
 
 counterfile = open("bme280counter.txt","r")
 cur = counterfile.read()
-newcur = cur+1
+newcur = int(cur)+1
 newcounterfile = open("bme280counter.txt","w")
-newcounterfile.write(newcur)
+newcounterfile.write(int(newcur))
 
 
 #Initialization
