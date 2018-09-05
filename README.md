@@ -1,8 +1,15 @@
 # sdstate-cubesat
 
+## New Raspberry Pi Set-Up
 
+```
+sudo apt-get update
+```
+Enable interfaces
+```
+sudo raspi-config
+```
 
----
 ## MPL3115A2 Sensor Set-Up
 
 |Sensor   |Raspberry Pi  |
