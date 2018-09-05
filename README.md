@@ -11,6 +11,11 @@ sudo raspi-config
 ```
 Enable Interface options VNC, I2C, SPI, Serial, etc.
 
+(Optional) Install Remote Desktop
+```
+apt-get install xrdp
+```
+
 ## MPL3115A2 Sensor Set-Up
 
 |Sensor   |Raspberry Pi  |
