@@ -9,6 +9,7 @@ Enable interfaces
 ```
 sudo raspi-config
 ```
+Enable Interface options VNC, I2C, SPI, Serial, etc.
 
 ## MPL3115A2 Sensor Set-Up
 
