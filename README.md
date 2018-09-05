@@ -3,7 +3,7 @@
 
 
 ---
-#MPL3115A2 Sensor Set-Up
+## MPL3115A2 Sensor Set-Up
 
 |Sensor   |Raspberry Pi  |
 |---------|--------------|
