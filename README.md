@@ -16,6 +16,26 @@ Enable Interface options VNC, I2C, SPI, Serial, etc.
 apt-get install xrdp
 ```
 
+## GPS Set-Up (Using Adafruit Ultimate GPS Breakout Board)
+Install GPSD:
+```
+sudo apt-get install gpsd gpsd-clients python-gps
+```
+Since we're using Raspbian Stretch (later version than Jessie), we have disable a systemd service:
+```
+sudo systemct1 stop gpsd.socket
+sudo systemct1 disable gpsd.socket
+```
+To start gpsd using UART:
+```
+sudo killall gpsd
+sudo gpsd /dev/ttyS0 -F /var/run/gpsd.sock
+```
+To test the output:
+```
+cgps -s
+```
+
 ## MPL3115A2 Sensor Set-Up
 
 |Sensor   |Raspberry Pi  |
