@@ -22,11 +22,11 @@ setting = bus.read_byte_data(ADDR, CTRL_REG1)
 newSetting = setting | 0x38
 bus.write_byte_data(ADDR, CTRL_REG1, newSetting)
 
-# Enable event flags
-bus.write_byte_data(ADDR, PT_DATA_CFG, 0x07)
-
 # Write to CSV file
 while True:
+    # Enable event flags
+    bus.write_byte_data(ADDR, PT_DATA_CFG, 0x07)
+
     # Toggel One Shot
     setting = bus.read_byte_data(ADDR, CTRL_REG1)
     if (setting & 0x02) == 0:
