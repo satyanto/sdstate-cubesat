@@ -71,4 +71,4 @@ while True:
                             str(celsius)+deg.encode("utf8")+"C",
                             str(fahrenheit)+deg.encode("utf8")+"F"])
 
-    time.sleep(2000)
+    time.sleep(2)
