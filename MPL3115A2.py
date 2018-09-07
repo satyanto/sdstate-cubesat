@@ -30,16 +30,17 @@ setting = bus.read_byte_data(ADDR, CTRL_REG1)
 if (setting & 0x02) == 0:
     bus.write_byte_data(ADDR, CTRL_REG1, (setting | 0x02))
 
+
+# Read sensor data
+print "Waiting for data..."
+status = bus.read_byte_data(ADDR,0x00)
+while (status & 0x08) == 0:
+    #print bin(status)
+    status = bus.read_byte_data(ADDR,0x00)
+    time.sleep(0.5)
+
 # Write to CSV file
 while True:
-    # Read sensor data
-    print "Waiting for data..."
-    status = bus.read_byte_data(ADDR,0x00)
-    while (status & 0x08) == 0:
-        #print bin(status)
-        status = bus.read_byte_data(ADDR,0x00)
-        time.sleep(0.5)
-
     print "Reading sensor data..."
     p_data = bus.read_i2c_block_data(ADDR,0x01,3)
     t_data = bus.read_i2c_block_data(ADDR,0x04,2)
