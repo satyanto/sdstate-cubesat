@@ -16,6 +16,18 @@ Enable Interface options VNC, I2C, SPI, Serial, etc.
 apt-get install xrdp
 ```
 
+## Feather M0 Arduino IDE & Transmit/Receive Setup:
+Download the Arduino IDE, go to preferences and add the URL below for Additional Boards Manager (click on the small icon on the side):
+https://adafruit.github.io/arduino-board-index/package_adafruit_index.json
+Click OK.
+Now, go to the 'Tools' tab, mouse over 'Board:' and go to 'Boards Manager...' and install the following:
+"Arduino SAMD Boards"
+"Arduino SAMD Beta Boards"
+"Adafruit SAMD Boards"
+Restart the Arduino IDE.
+Now connect the Adafruit Feather M0 with USB and go to the 'Tools' tab, go to 'Board:' and pick 'Adafruit Feather M0'.
+And that's it!
+
 ## GPS Set-Up (Using Adafruit Ultimate GPS Breakout Board)
 Install GPSD:
 ```
