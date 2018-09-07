@@ -62,9 +62,9 @@ while true:
     print str(pressure+p_decimal)+" Pa"
     print str(celsius)+deg+"C"
     print str(fahrenheit)+deg+"F"
-    
+
     with open('data.csv', 'w', newline='') as csvfile:
-    datalogger = csv.writer(csvfile, delimiter=' ', quotechar='|', quoting=csv.QUOTE_MINIMAL)
+        datalogger = csv.writer(csvfile, delimiter=' ', quotechar='|', quoting=csv.QUOTE_MINIMAL)
         datalogger.writerow(['Time', 'Pressure', 'Celsius', 'Fahrenheit'])
         datalogger.writerow([time.strftime('%m/%d/%Y %H:%M:%S%z'),
                             str(pressure+p_decimal)+" Pa",
