@@ -70,6 +70,6 @@ while True:
         datalogger.writerow([time.strftime('%m/%d/%Y %H:%M:%S%z'),
                             str(pressure+p_decimal)+" Pa",
                             str(celsius)+deg+"C",
-                            str(fahrenheit)+deg+"F"])
+                            tempF])
 
     time.sleep(2000)
