@@ -62,7 +62,7 @@ while True:
     print str(pressure+p_decimal)+" Pa"
     print str(celsius)+deg+"C"
     print str(fahrenheit)+deg+"F"
-    tempF = str(fahrenheit)+deg+"F"
+    tempF = fahrenheit.encode('utf-8')+deg+"F"
 
     with open('data.csv', 'w') as csvfile:
         datalogger = csv.writer(csvfile, delimiter=' ')
@@ -70,6 +70,6 @@ while True:
         datalogger.writerow([time.strftime('%m/%d/%Y %H:%M:%S%z'),
                             str(pressure+p_decimal)+" Pa",
                             str(celsius)+deg+"C",
-                            tempF])
+                            str(fahrenheit)+deg+"F"])
 
     time.sleep(2000)
