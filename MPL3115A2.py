@@ -68,7 +68,7 @@ while True:
         datalogger.writerow(['Time', 'Pressure', 'Celsius', 'Fahrenheit'])
         datalogger.writerow([time.strftime('%m/%d/%Y %H:%M:%S%z'),
                             str(pressure+p_decimal)+" Pa",
-                            str(celsius)+deg+"C",
-                            str(fahrenheit)+deg+"F"])
+                            str(celsius)+deg.encode("utf8")+"C",
+                            str(fahrenheit)+deg.encode("utf8")+"F"])
 
     time.sleep(2000)
