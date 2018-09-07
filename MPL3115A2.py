@@ -23,7 +23,7 @@ newSetting = setting | 0x38
 bus.write_byte_data(ADDR, CTRL_REG1, newSetting)
 
 fileName = 'data'+time.strftime('%m%d_%Hh%Mm%Ss')+'.csv'
-f = open('fileName.csv','w')
+f = open(fileName,'w')
 f.write('Time,Pressure,Temp. ('+deg.encode("utf8")+'C),Temp. ('+deg.encode("utf8")+'F),')
 f.close()
 # Write to CSV file
