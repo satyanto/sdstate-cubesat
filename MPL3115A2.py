@@ -65,7 +65,7 @@ while True:
         print str(fahrenheit)+deg+"F"
 
         if run_count == 1:
-            fileName = 'data'+time.strftime('%m%d_%H_%M_%S')+'.csv'
+            fileName = 'data'+time.strftime('%m%d_%Hh%Mm%Ss')+'.csv'
 
         with open(fileName, 'a') as csvfile:
             datalogger = csv.writer(csvfile, delimiter=',', lineterminator='\n')
