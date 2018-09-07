@@ -32,9 +32,6 @@ if (setting & 0x02) == 0:
 
 # Write to CSV file
 while true:
-    with open('data.csv', 'w', newline='') as csvfile:
-    datalogger = csv.writer(csvfile, delimiter=' ', quotechar='|', quoting=csv.QUOTE_MINIMAL)
-
     # Read sensor data
     print "Waiting for data..."
     status = bus.read_byte_data(ADDR,0x00)
@@ -65,11 +62,13 @@ while true:
     print str(pressure+p_decimal)+" Pa"
     print str(celsius)+deg+"C"
     print str(fahrenheit)+deg+"F"
-
-    datalogger.writerow(['Time', 'Pressure', 'Celsius', 'Fahrenheit'])
-    datalogger.writerow([time.strftime('%m/%d/%Y %H:%M:%S%z'),
-                        str(pressure+p_decimal)+" Pa",
-                        str(celsius)+deg+"C",
-                        str(fahrenheit)+deg+"F"])
+    
+    with open('data.csv', 'w', newline='') as csvfile:
+    datalogger = csv.writer(csvfile, delimiter=' ', quotechar='|', quoting=csv.QUOTE_MINIMAL)
+        datalogger.writerow(['Time', 'Pressure', 'Celsius', 'Fahrenheit'])
+        datalogger.writerow([time.strftime('%m/%d/%Y %H:%M:%S%z'),
+                            str(pressure+p_decimal)+" Pa",
+                            str(celsius)+deg+"C",
+                            str(fahrenheit)+deg+"F"])
 
     time.sleep(2000)
