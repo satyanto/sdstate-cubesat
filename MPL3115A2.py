@@ -31,7 +31,7 @@ if (setting & 0x02) == 0:
     bus.write_byte_data(ADDR, CTRL_REG1, (setting | 0x02))
 
 # Write to CSV file
-while true:
+while True:
     # Read sensor data
     print "Waiting for data..."
     status = bus.read_byte_data(ADDR,0x00)
