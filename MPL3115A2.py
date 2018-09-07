@@ -22,6 +22,8 @@ setting = bus.read_byte_data(ADDR, CTRL_REG1)
 newSetting = setting | 0x38
 bus.write_byte_data(ADDR, CTRL_REG1, newSetting)
 
+run_count = 1
+
 # Write to CSV file
 while True:
     # Enable event flags
@@ -62,7 +64,10 @@ while True:
         print str(celsius)+deg+"C"
         print str(fahrenheit)+deg+"F"
 
-        with open('data'+time.strftime('%m%d_%H_%M_%S')+'.csv', 'a') as csvfile:
+        if run_count == 1:
+            fileName = 'data'+time.strftime('%m%d_%H_%M_%S')+'.csv'
+
+        with open(fileName, 'a') as csvfile:
             datalogger = csv.writer(csvfile, delimiter=',', lineterminator='\n')
             datalogger.writerow(['Time', 'Pressure', 'Celsius', 'Fahrenheit'])
             datalogger.writerow([time.strftime('%m/%d/%Y %H:%M:%S%z'),
@@ -70,4 +75,5 @@ while True:
                                 str(celsius)+deg.encode("utf8")+"C",
                                 str(fahrenheit)+deg.encode("utf8")+"F"])
 
+        run_count += 1
         time.sleep(2)
