@@ -1,5 +1,6 @@
 from smbus import SMBus
 import time
+import csv
 
 # Special Chars
 deg = u'\N{DEGREE SIGN}'
@@ -29,33 +30,46 @@ setting = bus.read_byte_data(ADDR, CTRL_REG1)
 if (setting & 0x02) == 0:
     bus.write_byte_data(ADDR, CTRL_REG1, (setting | 0x02))
 
-# Read sensor data
-print "Waiting for data..."
-status = bus.read_byte_data(ADDR,0x00)
-while (status & 0x08) == 0:
-    #print bin(status)
+# Write to CSV file
+while true:
+    with open('data.csv', 'w', newline='') as csvfile:
+    datalogger = csv.writer(csvfile, delimiter=' ', quotechar='|', quoting=csv.QUOTE_MINIMAL)
+
+    # Read sensor data
+    print "Waiting for data..."
     status = bus.read_byte_data(ADDR,0x00)
-    time.sleep(0.5)
+    while (status & 0x08) == 0:
+        #print bin(status)
+        status = bus.read_byte_data(ADDR,0x00)
+        time.sleep(0.5)
 
-print "Reading sensor data..."
-p_data = bus.read_i2c_block_data(ADDR,0x01,3)
-t_data = bus.read_i2c_block_data(ADDR,0x04,2)
-status = bus.read_byte_data(ADDR,0x00)
-print "status: "+bin(status)
+    print "Reading sensor data..."
+    p_data = bus.read_i2c_block_data(ADDR,0x01,3)
+    t_data = bus.read_i2c_block_data(ADDR,0x04,2)
+    status = bus.read_byte_data(ADDR,0x00)
+    print "status: "+bin(status)
 
-p_msb = p_data[0]
-p_csb = p_data[1]
-p_lsb = p_data[2]
-t_msb = t_data[0]
-t_lsb = t_data[1]
+    p_msb = p_data[0]
+    p_csb = p_data[1]
+    p_lsb = p_data[2]
+    t_msb = t_data[0]
+    t_lsb = t_data[1]
 
-pressure = (p_msb << 10) | (p_csb << 2) | (p_lsb >> 6)
-p_decimal = ((p_lsb & 0x30) >> 4)/4.0
+    pressure = (p_msb << 10) | (p_csb << 2) | (p_lsb >> 6)
+    p_decimal = ((p_lsb & 0x30) >> 4)/4.0
 
-celsius = t_msb + (t_lsb >> 4)/16.0
-fahrenheit = (celsius * 9)/5 + 32
+    celsius = t_msb + (t_lsb >> 4)/16.0
+    fahrenheit = (celsius * 9)/5 + 32
 
-print "Pressure and Temperature at "+time.strftime('%m/%d/%Y %H:%M:%S%z')
-print str(pressure+p_decimal)+" Pa"
-print str(celsius)+deg+"C"
-print str(fahrenheit)+deg+"F"
+    print "Pressure and Temperature at "+time.strftime('%m/%d/%Y %H:%M:%S%z')
+    print str(pressure+p_decimal)+" Pa"
+    print str(celsius)+deg+"C"
+    print str(fahrenheit)+deg+"F"
+
+    datalogger.writerow(['Time', 'Pressure', 'Celsius', 'Fahrenheit'])
+    datalogger.writerow([time.strftime('%m/%d/%Y %H:%M:%S%z'),
+                        str(pressure+p_decimal)+" Pa",
+                        str(celsius)+deg+"C",
+                        str(fahrenheit)+deg+"F"])
+
+    time.sleep(2000)
