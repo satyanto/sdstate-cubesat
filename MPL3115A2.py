@@ -69,8 +69,8 @@ while True:
         with open(fileName, 'a') as csvfile:
             datalogger = csv.writer(csvfile, delimiter=',', lineterminator='\n')
             datalogger.writerow([time.strftime('%m/%d/%Y %H:%M:%S%z'),
-                                str(pressure+p_decimal)+" Pa",
-                                str(celsius)+deg.encode("utf8")+"C",
-                                str(fahrenheit)+deg.encode("utf8")+"F"])
+                                str(pressure+p_decimal),
+                                str(celsius),
+                                str(fahrenheit)])
 
         time.sleep(2)
