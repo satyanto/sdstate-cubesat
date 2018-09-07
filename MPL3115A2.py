@@ -23,51 +23,51 @@ newSetting = setting | 0x38
 bus.write_byte_data(ADDR, CTRL_REG1, newSetting)
 
 fileName = 'data'+time.strftime('%m%d_%Hh%Mm%Ss')+'.csv'
-# Write to CSV file
-while True:
-    # Enable event flags
-    bus.write_byte_data(ADDR, PT_DATA_CFG, 0x07)
+with open(fileName, 'a') as csvfile:
+    # Write to CSV file
+    while True:
+        # Enable event flags
+        bus.write_byte_data(ADDR, PT_DATA_CFG, 0x07)
 
-    # Toggel One Shot
-    setting = bus.read_byte_data(ADDR, CTRL_REG1)
-    if (setting & 0x02) == 0:
-        bus.write_byte_data(ADDR, CTRL_REG1, (setting | 0x02))
-        # Read sensor data
-        print "Waiting for data..."
-        status = bus.read_byte_data(ADDR,0x00)
-        while (status & 0x08) == 0:
-            #print bin(status)
+        # Toggel One Shot
+        setting = bus.read_byte_data(ADDR, CTRL_REG1)
+        if (setting & 0x02) == 0:
+            bus.write_byte_data(ADDR, CTRL_REG1, (setting | 0x02))
+            # Read sensor data
+            print "Waiting for data..."
             status = bus.read_byte_data(ADDR,0x00)
-            time.sleep(0.5)
+            while (status & 0x08) == 0:
+                #print bin(status)
+                status = bus.read_byte_data(ADDR,0x00)
+                time.sleep(0.5)
 
-        print "Reading sensor data..."
-        p_data = bus.read_i2c_block_data(ADDR,0x01,3)
-        t_data = bus.read_i2c_block_data(ADDR,0x04,2)
-        status = bus.read_byte_data(ADDR,0x00)
-        print "status: "+bin(status)
+            print "Reading sensor data..."
+            p_data = bus.read_i2c_block_data(ADDR,0x01,3)
+            t_data = bus.read_i2c_block_data(ADDR,0x04,2)
+            status = bus.read_byte_data(ADDR,0x00)
+            print "status: "+bin(status)
 
-        p_msb = p_data[0]
-        p_csb = p_data[1]
-        p_lsb = p_data[2]
-        t_msb = t_data[0]
-        t_lsb = t_data[1]
+            p_msb = p_data[0]
+            p_csb = p_data[1]
+            p_lsb = p_data[2]
+            t_msb = t_data[0]
+            t_lsb = t_data[1]
 
-        pressure = (p_msb << 10) | (p_csb << 2) | (p_lsb >> 6)
-        p_decimal = ((p_lsb & 0x30) >> 4)/4.0
+            pressure = (p_msb << 10) | (p_csb << 2) | (p_lsb >> 6)
+            p_decimal = ((p_lsb & 0x30) >> 4)/4.0
 
-        celsius = t_msb + (t_lsb >> 4)/16.0
-        fahrenheit = (celsius * 9)/5 + 32
+            celsius = t_msb + (t_lsb >> 4)/16.0
+            fahrenheit = (celsius * 9)/5 + 32
 
-        print "Pressure and Temperature at "+time.strftime('%m/%d/%Y %H:%M:%S%z')
-        print str(pressure+p_decimal)+" Pa"
-        print str(celsius)+deg+"C"
-        print str(fahrenheit)+deg+"F"
+            print "Pressure and Temperature at "+time.strftime('%m/%d/%Y %H:%M:%S%z')
+            print str(pressure+p_decimal)+" Pa"
+            print str(celsius)+deg+"C"
+            print str(fahrenheit)+deg+"F"
 
-        with open(fileName, 'a') as csvfile:
             datalogger = csv.writer(csvfile, delimiter=',', lineterminator='\n')
             datalogger.writerow([time.strftime('%m/%d/%Y %H:%M:%S%z'),
                                 str(pressure+p_decimal)+" Pa",
                                 str(celsius)+deg.encode("utf8")+"C",
                                 str(fahrenheit)+deg.encode("utf8")+"F"])
 
-        time.sleep(2)
+            time.sleep(2)
