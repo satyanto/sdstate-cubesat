@@ -20,7 +20,7 @@ def Get_Data():
     time.sleep(1)
     data=bus.read_i2c_block_data(0x60, 0x00, 4)
     press=((data[1]*65536)+(data[2]*256)+(data[3]&0xF0))/16
-    pressure=(pres/4)/1000 #given in kPa
+    pressure=(press/4)/1000 #given in kPa
 
     return pressure,ctemp,ftemp,altitude
 
