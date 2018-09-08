@@ -4,9 +4,9 @@
 from smbus import SMBus
 import time
 import csv
+bus = smbus.SMBus(1)
 
 def Get_Data():
-    bus = smbus.SMBus(1)
     bus.write_byte_data(0x60, 0x26, 0xB9)
     bus.write_byte_data(0x60, 0x13, 0x07)
     bus.write_byte_data(0x60, 0x26, 0xB9)
