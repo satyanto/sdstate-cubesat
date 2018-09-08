@@ -13,9 +13,16 @@ serialport = serial.Serial(
     timeout=1
 )
 
+deg = u'\N{DEGREE SIGN}'
+
 counter = 0
 
-import main_datalogger
+#import main_datalogger
+
+csv_filename = 'Data: '+time.strftime('%mm%dd%yy_%Hh%Mm%Ss')+'.csv'
+dataFile = open(csv_filename,'w')
+dataFile.write('Time,Pressure (kPa),Temperature ('+deg.encode("utf8")+'C),Temperature ('+deg.encode("utf8")+'F),Altitude (m),'+'\n')
+dataFile.close()
 
 while True:
     counter += 1
@@ -27,7 +34,7 @@ while True:
     datapacket = str(counter) + str(MPL3115A2_Data[0]) + str(MPL3115A2_Data[1]) + str(MPL3115A2_Data[2]) + str(MPL3115A2_Data[3])
     #datapacket = "%f %.2f %.1f %.1f %.1f" % (counter, MPL3115A2_Data[0], MPL3115A2_Data[1], MPL3115A2_Data[2], MPL3115A2_Data[3])
     serialport.write(datapacket)
-    time.sleep(2)
+    time.sleep(5)
     serialport.close()
     with open(csv_filename, 'a') as csvFile:
      dataLogger = csv.writer(csvFile, delimiter=',', lineterminator='\n')
