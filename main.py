@@ -2,7 +2,7 @@ import time
 import serial
 import csv
 from smbus import SMBus
-import lib_
+import lib_MPL3115A2
 
 serialport = serial.Serial(
     port='/dev/ttyACM0',
