@@ -1,6 +1,7 @@
 import time
 import serial
 import csv
+from smbus import SMBus
 
 serialport = serial.Serial(
     port='/dev/ttyACM0',
