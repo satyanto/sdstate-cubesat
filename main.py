@@ -2,6 +2,7 @@ import time
 import serial
 import csv
 from smbus import SMBus
+import lib_MPL3115A2
 
 serialport = serial.Serial(
     port='/dev/ttyACM0',
@@ -13,7 +14,6 @@ serialport = serial.Serial(
 )
 
 counter = 0
-datapacket = ""
 
 import main_datalogger
 
@@ -27,7 +27,7 @@ while True:
                             str(MPL3115A2_Data[1]),
                             str(MPL3115A2_Data[2]),
                             str(MPL3115A2_Data[3])])
-    datapacket = "%d %.2f %.1f %.1f %.1f" % (counter, MPL3115A2_Data[0], MPL3115A2_Data[1], MPL3115A2_Data[2], MPL3115A2_Data[3])
+    datapacket = "%d %.2d %.1d %.1d %.1d" % (counter, MPL3115A2_Data[0], MPL3115A2_Data[1], MPL3115A2_Data[2], MPL3115A2_Data[3])
     serialport.write(datapacket)
     time.sleep(2)
     serialport.close()
