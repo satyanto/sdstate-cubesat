@@ -29,16 +29,16 @@ while True:
     serialdata = serial.readline()
     serialdatasliced = serialdata[ : 1]
     if (serialdata == "X"):
-    serialport.write("Command Mode")
-    time.sleep(1)
-    slicemore = serialdata [1 : ]
+        serialport.write("Command Mode")
+        time.sleep(1)
+        slicemore = serialdata [1 : ]
         if (slicemore == "hello"):
             serialport.write("I wuv u")
-        elseif (slicemore == "i hate u"):
+            elseif (slicemore == "i hate u"):
             serialport.write("but i wuv u")
         else:
             serialport.write("ok sir")
-    time.sleep(1)
+            time.sleep(1)
     else:
     MPL3115A2_Data = lib_MPL3115A2.Get_Data()
     print str(MPL3115A2_Data[0])
