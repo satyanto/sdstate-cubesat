@@ -20,13 +20,6 @@ import main_datalogger
 while True:
     counter += 1
     MPL3115A2_Data = lib_MPL3115A2.Get_Data()
-    with open(csv_filename, 'a') as csvFile:
-         dataLogger = csv.writer(csvFile, delimiter=',', lineterminator='\n')
-         dataLogger.writerow([time.strftime('%m/%d/%Y %H:%M:%S%z'),
-                            str(MPL3115A2_Data[0]),
-                            str(MPL3115A2_Data[1]),
-                            str(MPL3115A2_Data[2]),
-                            str(MPL3115A2_Data[3])])
     print str(MPL3115A2_Data[0])
     print str(MPL3115A2_Data[1])
     print str(MPL3115A2_Data[2])
@@ -36,3 +29,10 @@ while True:
     serialport.write(datapacket)
     time.sleep(2)
     serialport.close()
+    with open(csv_filename, 'a') as csvFile:
+     dataLogger = csv.writer(csvFile, delimiter=',', lineterminator='\n')
+     dataLogger.writerow([time.strftime('%m/%d/%Y %H:%M:%S%z'),
+                        str(MPL3115A2_Data[0]),
+                        str(MPL3115A2_Data[1]),
+                        str(MPL3115A2_Data[2]),
+                        str(MPL3115A2_Data[3])])
