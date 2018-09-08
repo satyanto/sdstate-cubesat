@@ -2,6 +2,8 @@ import time
 import csv
 import lib_MPL3115A2
 
+deg = u'\N{DEGREE SIGN}'
+
 csv_filename = 'Data: '+time.strftime('%mm%dd%yy_%Hh%Mm%Ss')+'.csv'
 dataFile = open(csv_filename,'w')
 dataFile.write('Time,Pressure (kPa),Temperature ('+deg.encode("utf8")+'C),Temperature ('+deg.encode("utf8")+'F),Altitude (m),'+'\n')
