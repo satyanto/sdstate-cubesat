@@ -27,9 +27,10 @@ while True:
                             str(MPL3115A2_Data[1]),
                             str(MPL3115A2_Data[2]),
                             str(MPL3115A2_Data[3])])
-    #print MPL3115A2_Data[0]
-    #print MPL3115A2_Data[1]
-    #print ]
+    print str(MPL3115A2_Data[0])
+    print str(MPL3115A2_Data[1])
+    print str(MPL3115A2_Data[2])
+    print str(MPL3115A2_Data[3])
     datapacket = str(counter) + str(MPL3115A2_Data[0]) + str(MPL3115A2_Data[1]) + str(MPL3115A2_Data[2]) + str(MPL3115A2_Data[3])
     #datapacket = "%f %.2f %.1f %.1f %.1f" % (counter, MPL3115A2_Data[0], MPL3115A2_Data[1], MPL3115A2_Data[2], MPL3115A2_Data[3])
     serialport.write(datapacket)
