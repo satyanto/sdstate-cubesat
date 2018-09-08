@@ -45,7 +45,7 @@ while True:
     print str(MPL3115A2_Data[1])
     print str(MPL3115A2_Data[2])
     print str(MPL3115A2_Data[3])
-    datapacket = "%d %.2f %.1f %.1f %d" % (counter, MPL3115A2_Data[0], MPL3115A2_Data[1], MPL3115A2_Data[2], MPL3115A2_Data[3])
+    datapacket = "#: %d, kPa: %.2f, C: %.1f, F: %.1f, m: %d" % (counter, MPL3115A2_Data[0], MPL3115A2_Data[1], MPL3115A2_Data[2], MPL3115A2_Data[3])
     serialport.write(datapacket)
     time.sleep(2)
     with open(csv_filename, 'a') as csvFile:
