@@ -34,7 +34,7 @@ while True:
         slicemore = serialdata [1 : ]
         if (slicemore == "hello"):
             serialport.write("I wuv u")
-            elseif (slicemore == "i hate u"):
+        else if (slicemore == "i hate u"):
             serialport.write("but i wuv u")
         else:
             serialport.write("ok sir")
