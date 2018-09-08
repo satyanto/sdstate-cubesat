@@ -1,6 +1,7 @@
 import time
 import csv
 import lib_MPL3115A2
+from smbus import SMBus
 
 deg = u'\N{DEGREE SIGN}'
 
