@@ -3,8 +3,6 @@ import serial
 import csv
 from smbus import SMBus
 import lib_MPL3115A2
-from picamera import PiCamera
-import subprocess
 
 
 serialport = serial.Serial(
@@ -21,7 +19,7 @@ deg = u'\N{DEGREE SIGN}'
 counter = 0
 
 #import main_datalogger
-import camlog
+#import camlog
 
 csv_filename = 'Data: '+time.strftime('%mm%dd%yy_%Hh%Mm%Ss')+'.csv'
 dataFile = open(csv_filename,'w')
