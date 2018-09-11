@@ -92,3 +92,12 @@ echo -n 1 > /sys/module/i2c_bcm2708/parameters/combined
 exit
 ```
 
+
+Additional Reading:
+http://n5dux.com/ham/raspberrypi/igate.php
+http://www.rowetel.com/?p=5344
+https://github.com/antonjan/Raspberry_Telemetry
+https://hackaday.com/2018/05/02/raspberry-pi-is-up-up-and-away/#more-306026
+https://create.arduino.cc/projecthub/jweers1/arduino-aprs-tracker-wilderness-location-tracking-a50607
+
+
