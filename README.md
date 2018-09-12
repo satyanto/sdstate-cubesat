@@ -99,5 +99,6 @@ http://www.rowetel.com/?p=5344
 https://github.com/antonjan/Raspberry_Telemetry
 https://hackaday.com/2018/05/02/raspberry-pi-is-up-up-and-away/#more-306026
 https://create.arduino.cc/projecthub/jweers1/arduino-aprs-tracker-wilderness-location-tracking-a50607
-
+https://www.sparkfun.com/news/389
+https://www.sparkfun.com/tutorials/185
 
