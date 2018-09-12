@@ -101,4 +101,5 @@ Additional Reading:
 - https://create.arduino.cc/projecthub/jweers1/arduino-aprs-tracker-wilderness-location-tracking-a50607
 - https://www.sparkfun.com/news/389
 - https://www.sparkfun.com/tutorials/185
+- https://n1aae.com/raspberry-pi-aprs-direwolf-linux-igate-digipeater/
 
