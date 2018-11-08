@@ -38,32 +38,37 @@ Now connect the Adafruit Feather M0 with USB and go to the 'Tools' tab, go to 'B
 And that's it!
 
 ## GPS Set-Up (Using Adafruit Ultimate GPS Breakout Board)
-|Sensor   |Raspberry Pi  |
+|GPS      |Raspberry Pi  |
 |---------|--------------|
 |Vin      | 3.3V         |
 |GND      | GND          |
-|TX       | UART  TX     |
-|RX       | UART  RX     |
+|RX       | UART  TX     |
+|TX       | UART  RX     |
+
+1. Set up minicom, so we can test out the UART ports.
+```
+sudo apt-get install minicom
+```
+2. Edit the /boot/cmdline.txt file, so that it looks like this:
+(We are simply deleting references to ttyAMA0)
+Here is what looks like on the current Raspberry Pi (may differ):
+```
+dwc_otg.lpm_enable=0 console=tty1 root=/dev/mmcblk0p7 rootfstype=ext4 elevator=deadline fsck.repair=yes rootwait splash plymouth.ignore-serial-consoles
+```
+(single line)
+
+3. We can now test out what sort of data we are receiving from the UART serial port, but we first need to change the settings for the minicom:
+```
+sudo minicom -s
+```
+Go to serial port, change serial device to:    /dev/ttyS0
+Go to Bps/Par/Bits, change baudrate to:   9600
 
 
-Install GPSD:
-```
-sudo apt-get install gpsd gpsd-clients python-gps
-```
-Since we're using Raspbian Stretch (later version than Jessie), we have disable a systemd service:
-```
-sudo systemct1 stop gpsd.socket
-sudo systemct1 disable gpsd.socket
-```
-To start gpsd using UART:
-```
-sudo killall gpsd
-sudo gpsd /dev/ttyS0 -F /var/run/gpsd.sock
-```
-To test the output:
-```
-cgps -s
-```
+
+
+
+
 
 ## MPL3115A2 Sensor Set-Up
 
@@ -102,6 +107,7 @@ exit
 
 
 Additional Reading:
+- http://www.hobbytronics.co.uk/raspberry-pi-serial-port
 - http://n5dux.com/ham/raspberrypi/igate.php
 - http://www.rowetel.com/?p=5344
 - https://github.com/antonjan/Raspberry_Telemetry
