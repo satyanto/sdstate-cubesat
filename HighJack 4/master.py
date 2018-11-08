@@ -7,6 +7,8 @@ LIS3DH = False
 MPL3115A2 = False
 GPS = False
 
+deg = u'\N{DEGREE SIGN}'
+
 try:    ## Import LIS3DH Accelerometer
     import lib_LIS3DH
 except ImportError:
