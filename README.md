@@ -38,6 +38,14 @@ Now connect the Adafruit Feather M0 with USB and go to the 'Tools' tab, go to 'B
 And that's it!
 
 ## GPS Set-Up (Using Adafruit Ultimate GPS Breakout Board)
+|Sensor   |Raspberry Pi  |
+|---------|--------------|
+|Vin      | 3.3V         |
+|GND      | GND          |
+|TX       | UART  TX     |
+|RX       | UART  RX     |
+
+
 Install GPSD:
 ```
 sudo apt-get install gpsd gpsd-clients python-gps
@@ -61,7 +69,7 @@ cgps -s
 
 |Sensor   |Raspberry Pi  |
 |---------|--------------|
-|Vin      | 3V           |
+|Vin      | 3.3V         |
 |GND      | GND          |
 |SCL      | i2c SCL      |
 |SDA      | i2c SDA      |
