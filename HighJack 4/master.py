@@ -59,7 +59,7 @@ if (MPL3115A2==False):
     datarows[3] = 'MPL3115A2 N/A',
     datarows[4] = 'MPL3115A2 N/A',
 
-if (GPS==False);
+if (GPS==False):
     datarows[8] = 'GPS N/A',
     datarows[9] = 'GPS N/A',
     datarows[10] = 'GPS N/A',
