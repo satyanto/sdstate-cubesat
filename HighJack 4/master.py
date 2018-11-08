@@ -74,7 +74,7 @@ if (GPS==False):
 
 csv_filename = 'Data: '+time.strftime('%mm%dd%yy_%Hh%Mm%Ss')+'.csv'
 with open(csv_filename, 'w') as dataInit:
-    dataInit = csv.writer(dataFile, delimiter=',', lineterminator='\n')
+    dataInit = csv.writer(dataInit, delimiter=',', lineterminator='\n')
     dataInit.writerow(datarows)
     dataInit.close()
 
