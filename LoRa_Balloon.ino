@@ -6,6 +6,16 @@
     what to send, processing the data, parsing, or doing any processes based on the string data is done on
     the Raspberry Pi itself - the Arduino is here just as a terminal to send whatever over the LoRa antenna.
 
+
+    So:
+    1. Raspberry Pi connects to all sensors and sends a string through the serial port
+    2. This ino sketch reads the serial port and sends it over-the-air through LoRa
+
+    Again - any processing is done on the Raspberry Pi of the ground station and the balloon.
+
+    This ino sketch literally just passes through anything that is inside the serial port
+    and sends it over the air.
+
 */
 
 #include <SPI.h>
@@ -18,6 +28,7 @@
 
 RH_RF95 rf95(RFM95_CS, RFM95_INT);
 String readString;
+int PacketLength = 20
 
 void setup() {
   pinMode(RFM95_RST, OUTPUT);
@@ -26,68 +37,38 @@ void setup() {
   while (!Serial) {
     delay(1);
   }
-
   delay(500);
-
   digitalWrite(RFM95_RST, LOW);
   delay(100);
   digitalWrite(RFM95_RST, HIGH);
   delay(100);
-
   while(!rf95.init()) {
     Serial.println("LoRa radio initialization failed.");
     while (1);
   }
   Serial.println("LoRa radio initialization OK!");
-
   rf95.setTxPower(23, false);
 }
 
 void loop() {
-
-  //  Sending whatever is read from the serial port over-the-air through LoRa
-  while (Serial.available()) {                                    // While the port is open, read each letter as a character and save into array
+  while (Serial.available()) {
     delay(1);
     char c = Serial.read();
-    readString += c;                                              // Make a new array 'readString'
+    readString += c;
   }
-  readString.trim();                                              // Required before string comparison
-  if (readString.length() >0) {
-    Serial.println(readString);                                   // For testing purposes - print whatever is in 'readString'
-    char Packet[20];
-    readString.toCharArray(Packet, 20);
+  readString.trim();
+  if (readString.length() > 0) {
+    char Packet[PacketLength];
+    readString.toCharArray(Packet, PacketLength);
     delay(10);
-    rf95.send((uint8_t *)Packet, 20);
+    rf95.send((uint8_t *)Packet, PacketLength);
 
-    Serial.println("Waiting for packet to complete...");
     delay(10);
     rf95.waitPacketSent();
     uint8_t buf[RH_RF95_MAX_MESSAGE_LEN];
     uint8_t len = sizeof(buf);
 
-
-
-
-
-    if (rf95.waitAvailableTimeout(5000))
-    {
-      if (rf95.recv(buf, &len))
-      {
-      Serial.print("Confirmed Receive : ");
-      Serial.println((char*)buf);
-      Serial.print("RSSI: ");
-      Serial.println(rf95.lastRssi(), DEC);
-      }
-      else
-      {
-        Serial.println("Receive failed");
-      }
-    }
-    else
-    {
-      Serial.println("No reply.");
-    }
-
     readString = "";
   }
+  delay(1000);  // Sleep Time
 }

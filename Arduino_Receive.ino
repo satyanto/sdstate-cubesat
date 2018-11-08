@@ -1,6 +1,6 @@
 /*
     Hafidh Satyanto
-    Arduino Receiver Code
+    Arduino Groundstation Code
 
     Receives over-the-air serial character arrays via LoRa from another transceiver and then converts to string
     to groundstation Raspberry Pi, of which it would then be parsed and processed.
@@ -13,8 +13,8 @@
 #define RFM95_CS 8
 #define RFM95_RST 4
 #define RFM95_INT 3
-
 #define RF95_FREQ 915.0
+
 RH_RF95 rf95(RFM95_CS, RFM95_INT);
 
 void setup()
@@ -26,12 +26,12 @@ void setup()
   while (!Serial) {
     delay(1);
   }
-  delay(100);
+  delay(500);
 
   digitalWrite(RFM95_RST, LOW);
-  delay(10);
+  delay(100);
   digitalWrite(RFM95_RST, HIGH);
-  delay(10);
+  delay(100);
 
   while(!rf95.init()) {
     Serial.println("LoRa radio initialization failed.");
@@ -39,7 +39,7 @@ void setup()
   }
   Serial.println("LoRa radio initialization OK!");
 
-  rf95.setTxPower(5, false);
+  rf95.setTxPower(23, false);
 }
 
 void loop()

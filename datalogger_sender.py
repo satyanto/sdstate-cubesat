@@ -70,13 +70,13 @@ while True:
         print str(pressure+p_decimal)+" Pa"
         print str(celsius)+deg+"C"
         print str(fahrenheit)+deg+"F"
-        
-        #ser.write("Pressure and Temperature at "+time.strftime('%m/%d/%Y %H:%M:%S%z')) 
+
+        #ser.write("Pressure and Temperature at "+time.strftime('%m/%d/%Y %H:%M:%S%z'))
         #ser.write(str(pressure+p_decimal)+" Pa")
         ser.write(str(pressure))
-        
-        
-        
+
+
+
 
         with open(fileName, 'a') as csvfile:
             datalogger =csv.writer(csvfile, delimiter=',', lineterminator='\n')
