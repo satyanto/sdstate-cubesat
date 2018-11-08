@@ -76,7 +76,6 @@ csv_filename = 'Data: '+time.strftime('%mm%dd%yy_%Hh%Mm%Ss')+'.csv'
 with open(csv_filename, 'w') as dataInit:
     dataInit = csv.writer(dataInit, delimiter=',', lineterminator='\n')
     dataInit.writerow(datarows)
-    dataInit.close()
 
 while True:
     if (MPL3115A2==True):
