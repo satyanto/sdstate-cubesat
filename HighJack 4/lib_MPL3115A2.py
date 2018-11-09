@@ -29,9 +29,6 @@ def Get_Data():
         press=((data[1]*65536)+(data[2]*256)+(data[3]&0xF0))/16.00
         pressure=(press/4.00)/1000.00 #given in kPa
 
-        print(pressure)
-        print(ctemp)
-        print(altitude)
         return pressure,ctemp,altitude
     except IOError:
         print('MPL3115A2 Connection Error')
