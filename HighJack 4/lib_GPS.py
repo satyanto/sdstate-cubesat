@@ -4,6 +4,7 @@
 from micropyGPS import MicropyGPS
 import time
 import serial
+import threading
 
 timezone_offset = -6
 
@@ -14,10 +15,11 @@ srl = serial.Serial(
     )
 counter = 0
 
-while True:
-    srlline = srl.readline()
-    for iter in srlline:
-        gps.update(iter)
+def Update_Data():
+    while True:
+        srlline = srl.readline()
+        for iter in srlline:
+            gps.update(iter)
 
 def Get_Data():
     try:
@@ -36,19 +38,5 @@ def Get_Data():
 
 if __name__ == "__main__":
     Get_Data()
-
-
-
-
-    'Fix Timestamp (Hours)',                                #8
-    'Fix Timestamp (Minutes)',                              #8
-    'Fix Timestamp (Seconds)',                              #8
-    'Fix Type',                                             #9
-    '# Satellites',                                         #10
-    'Latitude ('+deg.encode("utf8")+')',                    #11
-    'Latitude ('+apo.encode("utf8")+')',                    #11
-    'Latitude (Direction)',                                 #11
-    'Longitude ('+deg.encode("utf8")+')',                   #12
-    'Longitude ('+apo.encode("utf8")+')',                   #12
-    'Altitude GPS (m)',                                     #13
-    'Speed (kph)',                                          #14
+    thread = threading.Thread(target=Update_Data)
+    thread.start()
