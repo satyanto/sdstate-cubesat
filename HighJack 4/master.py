@@ -81,17 +81,19 @@ while True:
     if (MPL3115A2==True):
         MPL3115A2_Data = lib_MPL3115A2.Get_Data()
     else:
-        MPL3115A2_Data = [0, 0, 0, 0]
+        MPL3115A2_Data = ['0', '0', '0', '0']
 
     if (LIS3DH==True):
         LIS3DH_Data = lib_LIS3DH.Get_Data()
     else:
-        LIS3DH_Data = [0, 0, 0]
+        LIS3DH_Data = ['0', '0', '0']
+        if (not lib_LIS3DH.Get_Data()):
+            print('LIS3DH Data Error')
 
     if (GPS==True):
         GPS_Data = lib_GPS.Get_Data()
     else:
-        GPS_Data = [0, 0, 0, 0, 0, 0, 0, 0, 0]
+        GPS_Data = ['0', '0', '0', '0', '0', '0', '0', '0', '0']
 
     with open(csv_filename, 'a') as csvFile:
          dataLogger = csv.writer(csvFile, delimiter=',', lineterminator='\n')

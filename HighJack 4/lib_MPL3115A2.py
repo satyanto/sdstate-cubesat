@@ -32,7 +32,6 @@ def Get_Data():
         return pressure,ctemp,ftemp,altitude
     except IOError:
         print('MPL3115A2 Connection Error')
-        
 
 if __name__ == "__main__":
     Get_Data()
