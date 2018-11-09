@@ -36,40 +36,39 @@ else:
 
 datarows = [
     'Time',                                                 #0
-    'Pressure (kPa)',                                       #1
+    'Pressure (Pa)',                                        #1
     'Temperature ('+deg.encode("utf8")+'C)',                #2
-    'Temperature ('+deg.encode("utf8")+'F)',                #3
-    'Altitude Estimation (m)',                              #4
-    'Acceleration (X)',                                     #5
-    'Acceleration (Y)',                                     #6
-    'Acceleration (Z)',                                     #7
-    'Fix Timestamp (Hours)',                                #8
+    'Altitude Estimation (m)',                              #3
+    'Acceleration (X)',                                     #4
+    'Acceleration (Y)',                                     #5
+    'Acceleration (Z)',                                     #6
+    'Fix Timestamp (Hours)',                                #7
     'Fix Timestamp (Minutes)',                              #8
-    'Fix Timestamp (Seconds)',                              #8
-    'Fix Type',                                             #9
-    '# Satellites',                                         #10
-    'Latitude ('+deg.encode("utf8")+')',                    #11
-    'Latitude ('+apo.encode("utf8")+')',                    #11
-    'Latitude (Direction)',                                 #11
-    'Longitude ('+deg.encode("utf8")+')',                   #12
-    'Longitude ('+apo.encode("utf8")+')',                   #12
-    'Longitude (Direction)',                                #12
-    'Altitude GPS (m)',                                     #13
-    'Speed (kph)',                                          #14
+    'Fix Timestamp (Seconds)',                              #9
+    'Fix Type',                                             #10
+    '# Satellites',                                         #11
+    'Latitude ('+deg.encode("utf8")+')',                    #12
+    'Latitude ('+apo.encode("utf8")+')',                    #13
+    'Latitude (Direction)',                                 #14
+    'Longitude ('+deg.encode("utf8")+')',                   #15
+    'Longitude ('+apo.encode("utf8")+')',                   #16
+    'Longitude (Direction)',                                #17
+    'Altitude GPS (m)',                                     #18
+    'Speed (kph)',                                          #19
 ]
 
 if (LIS3DH==False):
+    datarows[4] = 'LIS3DH N/A',
     datarows[5] = 'LIS3DH N/A',
     datarows[6] = 'LIS3DH N/A',
-    datarows[7] = 'LIS3DH N/A',
 
 if (MPL3115A2==False):
     datarows[1] = 'MPL3115A2 N/A',
     datarows[2] = 'MPL3115A2 N/A',
     datarows[3] = 'MPL3115A2 N/A',
-    datarows[4] = 'MPL3115A2 N/A',
 
 if (GPS==False):
+    datarows[7] = 'GPS N/A',
     datarows[8] = 'GPS N/A',
     datarows[9] = 'GPS N/A',
     datarows[10] = 'GPS N/A',
@@ -79,6 +78,9 @@ if (GPS==False):
     datarows[14] = 'GPS N/A',
     datarows[15] = 'GPS N/A',
     datarows[16] = 'GPS N/A',
+    datarows[17] = 'GPS N/A',
+    datarows[18] = 'GPS N/A',
+    datarows[19] = 'GPS N/A',
 
 csv_filename = 'Data: '+time.strftime('%mm%dd%yy_%Hh%Mm%Ss')+'.csv'
 with open(csv_filename, 'w') as dataInit:
@@ -89,7 +91,7 @@ while True:
     if (MPL3115A2==True):
         MPL3115A2_Data = lib_MPL3115A2.Get_Data()
     else:
-        MPL3115A2_Data = [0, 0, 0, 0]
+        MPL3115A2_Data = [0, 0, 0]
 
     if (LIS3DH==True):
         LIS3DH_Data = lib_LIS3DH.Get_Data()
@@ -100,18 +102,14 @@ while True:
         GPS_Data = lib_GPS.Get_Data()
     else:
         print('AAAAAAH!!!')
-        #GPS_Data = [[0,0,0], 0, 0, [0,0,0], [0,0,0], 0, 0]
-
-    print('Timestamp Hours:'+str(GPS_Data[0])+'')
-    print('Latitude Degrees:'+str(GPS_Data[3])+'')
+        GPS_Data = [[0,0,0], 0, 0, [0,0,0], [0,0,0], 0, 0]
 
     with open(csv_filename, 'a') as csvFile:
          dataLogger = csv.writer(csvFile, delimiter=',', lineterminator='\n')
          dataLogger.writerow([time.strftime('%m/%d/%Y %H:%M:%S%z'),
                             str(MPL3115A2_Data[0]),     # pressure kPa
                             str(MPL3115A2_Data[1]),     # temperature C
-                            str(MPL3115A2_Data[2]),     # temperature F
-                            str(MPL3115A2_Data[3]),     # altitude m
+                            str(MPL3115A2_Data[2]),     # altitude m
                             str(LIS3DH_Data[0]),        # accel X
                             str(LIS3DH_Data[1]),        # accel Y
                             str(LIS3DH_Data[2]),        # accel Z
