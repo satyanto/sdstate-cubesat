@@ -65,8 +65,8 @@ Go to serial port, change serial device to:    /dev/ttyS0
 Go to Bps/Par/Bits, change baudrate to:   9600
 
 
-
-
+4. We also want to install the great NMEA parser from this link: https://github.com/inmcm/micropyGPS
+Follow the install instructions and set it up. Then, you'll be able to use lib_GPS
 
 
 
