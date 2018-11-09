@@ -128,4 +128,4 @@ while True:
                             str(GPS_Data[5]),           # altitude m
                             str(GPS_Data[6]),           # speed
                             ])
-    time.sleep(2)
+    time.sleep(0.75)
