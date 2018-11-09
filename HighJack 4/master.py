@@ -101,8 +101,8 @@ while True:
         print('AAAAAAH!!!')
         #GPS_Data = [[0,0,0], 0, 0, [0,0,0], [0,0,0], 0, 0]
 
-    print('Timestamp Hours:'+str(GPS_Data[0][0])+'')
-    print('Latitude Degrees:'+str(GPS_Data[3][0])+'')
+    print('Timestamp Hours:'+str(GPS_Data[0])+'')
+    print('Latitude Degrees:'+str(GPS_Data[3])+'')
 
     with open(csv_filename, 'a') as csvFile:
          dataLogger = csv.writer(csvFile, delimiter=',', lineterminator='\n')
