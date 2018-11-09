@@ -112,8 +112,7 @@ while True:
          dataLogger.writerow([time.strftime('%m/%d/%Y %H:%M:%S%z'),
                             str(MPL3115A2_Data[0]),     # pressure kPa
                             str(MPL3115A2_Data[1]),     # temperature C
-                            str(MPL3115A2_Data[2]),     # temperature F
-                            str(MPL3115A2_Data[3]),     # altitude m
+                            str(MPL3115A2_Data[2]),     # altitude m
                             str(LIS3DH_Data[0]),        # accel X
                             str(LIS3DH_Data[1]),        # accel Y
                             str(LIS3DH_Data[2]),        # accel Z
