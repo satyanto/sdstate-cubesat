@@ -8,19 +8,9 @@
 #   SCL to i2c SCL
 #   SDA to i2c SDA
 
-<<<<<<< HEAD
-import board
-import busio
-import adafruit_mpl3115a2
-i2c = busio.I2C(board.SCL, board.SDA)
-sensor = adafruit_mpl3115a2.MPL3115A2(i2c)
-
-sensor.sealevel_pressure = 102250
-=======
 from smbus import SMBus
 import time
 bus = SMBus(1)
->>>>>>> parent of 1725df5... changed lib_mpl3115a2 to depend on adafruit drivers instead of own custom one
 
 def Get_Data():
     try:
@@ -44,5 +34,5 @@ def Get_Data():
         print('MPL3115A2 Connection Error')
         return 0,0,0,0
 
-if __name__ == "__main__":
-    Get_Data()
+ if __name__ == "__main__":
+     Get_Data()
