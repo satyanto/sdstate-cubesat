@@ -107,6 +107,10 @@ sudo su -
 echo -n 1 > /sys/module/i2c_bcm2708/parameters/combined
 exit
 ```
+We will also use Adafruit's CircuitPython MPL3115A2 library, and once the Adafruit CircuitPython dependencies are installed above, we can install the sensor driver with:
+```
+pip3 install adafruit-circuitpython-mpl3115a2
+
 
 
 Additional Reading:
