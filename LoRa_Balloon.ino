@@ -33,7 +33,7 @@ int PacketLength = 20
 void setup() {
   pinMode(RFM95_RST, OUTPUT);
   digitalWrite(RFM95_RST, HIGH);
-  Serial.begin(9600);
+  Serial.begin(19200);
   while (!Serial) {
     delay(1);
   }
