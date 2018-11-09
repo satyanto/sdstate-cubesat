@@ -34,5 +34,5 @@ def Get_Data():
         print('MPL3115A2 Connection Error')
         return 0,0,0,0
 
- if __name__ == "__main__":
-     Get_Data()
+if __name__ == "__main__":
+    Get_Data()
