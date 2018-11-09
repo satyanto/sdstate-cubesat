@@ -115,7 +115,7 @@ while True:
                             str(GPS_Data[7]),           # track Angle
                             str(GPS_Data[8]),           # horizontal dilution
                             ])
-        print(LIS3DH_Data[0])
-        print(LIS3DH_Data[1])
-        print(LIS3DH_Data[2])
+    print(LIS3DH_Data[0])
+    print(LIS3DH_Data[1])
+    print(LIS3DH_Data[2])
     time.sleep(2)
