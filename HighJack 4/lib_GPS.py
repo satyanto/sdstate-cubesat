@@ -12,6 +12,7 @@ srl = serial.Serial(
     port='/dev/ttyS0',
     baudrate=9600,
     )
+counter = 0
 
 while True:
     srlline = srl.readline()
