@@ -21,6 +21,7 @@ def Update_Data():
         print(srlline)
         for iter in srlline:
             gps.update(iter)
+        time.sleep(1)
 
 def Get_Data():
     try:
