@@ -38,6 +38,7 @@ def Get_Data():
         return x_val,y_val,z_val
     except IOError:
         print('LIS3DH Connection Error')
+        return 0,0,0
 
 if __name__ == "__main__":
     Get_Data()
