@@ -6,11 +6,9 @@
 #   SCL to i2c SCL
 #   SDA to i2c SDA
 
-import time
 import board
 import busio
 import adafruit_mpl3115a2
-
 i2c = busio.I2C(board.SCL, board.SDA)
 sensor = adafruit_mpl3115a2.MPL3115A2(i2c)
 
