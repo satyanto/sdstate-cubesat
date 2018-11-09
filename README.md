@@ -15,6 +15,9 @@ Enable Interface options VNC, I2C, SPI, Serial, etc.
 ```
 apt-get install xrdp
 ```
+We also want to install some CircuitPython Adafruit libraries, since we're gonna use a lot of sensors from Adafruit, because they make their own drivers for them.
+Follow the instructions here:
+https://learn.adafruit.com/circuitpython-on-raspberrypi-linux/installing-circuitpython-on-raspberry-pi
 
 ## Feather M0 Arduino IDE & Transmit/Receive Setup:
 Download the Arduino IDE, go to preferences and add the URL below for Additional Boards Manager (click on the small icon on the side):
@@ -65,8 +68,8 @@ Go to serial port, change serial device to:    /dev/ttyS0
 Go to Bps/Par/Bits, change baudrate to:   9600
 
 
-
-
+4. We also want to install the great NMEA parser from this link: https://github.com/inmcm/micropyGPS
+Follow the install instructions and set it up. Then, you'll be able to use lib_GPS
 
 
 
@@ -104,6 +107,11 @@ sudo su -
 echo -n 1 > /sys/module/i2c_bcm2708/parameters/combined
 exit
 ```
+We will also use Adafruit's CircuitPython MPL3115A2 library, and once the Adafruit CircuitPython dependencies are installed above, we can install the sensor driver with:
+```
+pip3 install adafruit-circuitpython-mpl3115a2
+```
+
 
 
 Additional Reading:
