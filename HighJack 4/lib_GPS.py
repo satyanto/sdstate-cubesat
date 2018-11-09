@@ -29,6 +29,8 @@ def Get_Data():
         fixtype = gps.fix_type              # 1 = no fix,  2 = 2D fix,  3 = 3D fix,
 
         return timestamp, fixtype, satellites, latitude, longitude, altitude, speed
+        print(timestamp)
+        print(latitude)
     except IOError:
         print('GPS Connection Error')
         #return [0,0,0], 0, 0, [0,0,0], [0,0,0], 0, 0
