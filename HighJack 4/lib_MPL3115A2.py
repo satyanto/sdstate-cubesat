@@ -9,6 +9,7 @@
 #   SDA to i2c SDA
 
 from smbus import SMBus
+import time
 bus = SMBus(1)
 
 def Get_Data():
