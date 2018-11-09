@@ -8,6 +8,7 @@ MPL3115A2 = False
 GPS = False
 
 deg = u'\N{DEGREE SIGN}'
+apo = u"\u0027" #apostrophe
 
 try:    ## Import LIS3DH Accelerometer
     import lib_LIS3DH
@@ -15,6 +16,7 @@ except ImportError:
     print('Error importing LIS3DH Sensor')
 else:
     LIS3DH = True
+    print('LIS3DH Accelerometer Connected')
 
 try:    ## Import MPL3115A2 Barometeric Altimeter
     import lib_MPL3115A2
@@ -22,6 +24,7 @@ except ImportError:
     print('Error importing MPL3115A2 Sensor')
 else:
     MPL3115A2 = True
+    print('MPL3115A2 Altimeter Connected')
 
 try:    ## Import GPS
     import lib_GPS
@@ -29,6 +32,7 @@ except ImportError:
     print('Error importing GPS Sensor')
 else:
     GPS = True
+    print('Adafruit GPS Connected')
 
 datarows = [
     'Time',                                                 #0
@@ -39,15 +43,18 @@ datarows = [
     'Acceleration (X)',                                     #5
     'Acceleration (Y)',                                     #6
     'Acceleration (Z)',                                     #7
-    'Fix Timestamp',                                        #8
-    'Fix Quality',                                          #9
-    'Latitude ('+deg.encode("utf8")+')',                    #10
-    'Longitude ('+deg.encode("utf8")+')',                   #11
-    '# Satellites',                                         #12
+    'Fix Timestamp (Hours)',                                #8
+    'Fix Timestamp (Minutes)',                              #8
+    'Fix Timestamp (Seconds)',                              #8
+    'Fix Type',                                             #9
+    '# Satellites',                                         #10
+    'Latitude ('+deg.encode("utf8")+')',                    #11
+    'Latitude ('+apo.encode("utf8")+')',                    #11
+    'Latitude (Direction)',                                 #11
+    'Longitude ('+deg.encode("utf8")+')',                   #12
+    'Longitude ('+apo.encode("utf8")+')',                   #12
     'Altitude GPS (m)',                                     #13
-    'Speed (knots)',                                        #14
-    'Track Angle ('+deg.encode("utf8")+')',                 #15
-    'Horizontal Dilution',                                  #16
+    'Speed (kph)',                                          #14
 ]
 
 if (LIS3DH==False):
@@ -87,13 +94,11 @@ while True:
         LIS3DH_Data = lib_LIS3DH.Get_Data()
     else:
         LIS3DH_Data = [0, 0, 0]
-        if (not lib_LIS3DH.Get_Data()):
-            print('LIS3DH Data Error')
 
     if (GPS==True):
         GPS_Data = lib_GPS.Get_Data()
     else:
-        GPS_Data = [0, 0, 0, 0, 0, 0, 0, 0, 0]
+        GPS_Data = [[0,0,0], 0, 0, [0,0,0], [0,0,0], 0, 0]
 
     with open(csv_filename, 'a') as csvFile:
          dataLogger = csv.writer(csvFile, delimiter=',', lineterminator='\n')
@@ -105,17 +110,18 @@ while True:
                             str(LIS3DH_Data[0]),        # accel X
                             str(LIS3DH_Data[1]),        # accel Y
                             str(LIS3DH_Data[2]),        # accel Z
-                            str(GPS_Data[0]),           # fix timestamp
-                            str(GPS_Data[1]),           # fix Quality
-                            str(GPS_Data[2]),           # latitude deg
-                            str(GPS_Data[3]),           # longitude deg
-                            str(GPS_Data[4]),           # # Satellites
+                            str(GPS_Data[0][0]),        # fix timestamp hours
+                            str(GPS_Data[0][1]),        # fix timestamp minutes
+                            str(GPS_Data[0][2]),        # fix timestamp seconds
+                            str(GPS_Data[1]),           # fix type integer
+                            str(GPS_Data[2]),           # satellites integer
+                            str(GPS_Data[3][0]),        # latitude degrees
+                            str(GPS_Data[3][1]),        # latitude minutes
+                            str(GPS_Data[3][2]),        # latitude string direction (S,N)
+                            str(GPS_Data[4][0]),        # longitude degrees
+                            str(GPS_Data[4][1]),        # longitude minutes
+                            str(GPS_Data[4][2]),        # longitude string direction (W,E)
                             str(GPS_Data[5]),           # altitude m
-                            str(GPS_Data[6]),           # speed knots
-                            str(GPS_Data[7]),           # track Angle
-                            str(GPS_Data[8]),           # horizontal dilution
+                            str(GPS_Data[6]),           # speed
                             ])
-    print(LIS3DH_Data[0])
-    print(LIS3DH_Data[1])
-    print(LIS3DH_Data[2])
     time.sleep(2)
