@@ -18,23 +18,26 @@ y = [0, 0, 0]
 z = [0, 0, 0]
 
 def Get_Data():
-    sensorx = sensor.getX()
-    sensory = sensor.getY()
-    sensorz = sensor.getZ() - 0.96
-    x[0] = x[1]
-    x[1] = x[2]
-    x[2] = sensorx
-    x_val = (x[0]+x[1]+x[2])/3
-    y[0] = y[1]
-    y[1] = y[2]
-    y[2] = sensory
-    y_val = (y[0]+y[1]+y[2])/3
-    z[0] = z[1]
-    z[1] = z[2]
-    z[2] = sensorz
-    z_val = (z[0]+z[1]+z[2])/3
+    try:
+        sensorx = sensor.getX()
+        sensory = sensor.getY()
+        sensorz = sensor.getZ() - 0.96
+        x[0] = x[1]
+        x[1] = x[2]
+        x[2] = sensorx
+        x_val = (x[0]+x[1]+x[2])/3
+        y[0] = y[1]
+        y[1] = y[2]
+        y[2] = sensory
+        y_val = (y[0]+y[1]+y[2])/3
+        z[0] = z[1]
+        z[1] = z[2]
+        z[2] = sensorz
+        z_val = (z[0]+z[1]+z[2])/3
 
-    return x_val,y_val,z_val
+        return x_val,y_val,z_val
+    except IOError:
+        print('LIS3DH Connection Error')
 
 if __name__ == "__main__":
     Get_Data()
