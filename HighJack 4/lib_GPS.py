@@ -26,7 +26,7 @@ srl = serial.Serial(
 def Get_Data():
     try:
         srlline = srl.readline()
-        for iter in strlline:
+        for iter in srlline:
             gps.update(iter)
 
         latitude = gps.latitude             # degrees, minutes, string direction (S,N)
