@@ -53,6 +53,7 @@ datarows = [
     'Latitude (Direction)',                                 #11
     'Longitude ('+deg.encode("utf8")+')',                   #12
     'Longitude ('+apo.encode("utf8")+')',                   #12
+    'Longitude (Direction)',                                #12
     'Altitude GPS (m)',                                     #13
     'Speed (kph)',                                          #14
 ]
