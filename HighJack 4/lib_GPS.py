@@ -30,7 +30,7 @@ def Get_Data():
 
         return timestamp, fixtype, satellites, latitude, longitude, altitude, speed
     except IOError:
-        #print('GPS Connection Error')
+        print('GPS Connection Error')
         #return [0,0,0], 0, 0, [0,0,0], [0,0,0], 0, 0
 
 if __name__ == "__main__":
