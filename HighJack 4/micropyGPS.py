@@ -1,8 +1,8 @@
-"""
+
 # MicropyGPS - a GPS NMEA sentence parser for Micropython/Python 3.X
 # Copyright (c) 2017 Michael Calvin McCoy (calvin.mccoy@protonmail.com)
 # The MIT License (MIT) - see LICENSE file
-"""
+
 
 # TODO:
 # Time Since First Fix
@@ -23,8 +23,8 @@ except ImportError:
 
 
 class MicropyGPS(object):
-    """GPS NMEA Sentence Parser. Creates object that stores all relevant GPS data and statistics.
-    Parses sentences one character at a time using update(). """
+    # GPS NMEA Sentence Parser. Creates object that stores all relevant GPS data and statistics.
+    # Parses sentences one character at a time using update(). """
 
     # Max Number of Characters a valid sentence can be (based on GGA sentence)
     SENTENCE_LIMIT = 90
@@ -39,14 +39,14 @@ class MicropyGPS(object):
                 'November', 'December')
 
     def __init__(self, local_offset=0, location_formatting='ddm'):
-        """
-        Setup GPS Object Status Flags, Internal Data Registers, etc
-            local_offset (int): Timzone Difference to UTC
-            location_formatting (str): Style For Presenting Longitude/Latitude:
-                                       Decimal Degree Minute (ddm) - 40° 26.767′ N
-                                       Degrees Minutes Seconds (dms) - 40° 26′ 46″ N
-                                       Decimal Degrees (dd) - 40.446° N
-        """
+
+        #Setup GPS Object Status Flags, Internal Data Registers, etc
+        #    local_offset (int): Timzone Difference to UTC
+        #    location_formatting (str): Style For Presenting Longitude/Latitude:
+        #                               Decimal Degree Minute (ddm) - 40° 26.767′ N
+        #                               Degrees Minutes Seconds (dms) - 40° 26′ 46″ N
+        #                               Decimal Degrees (dd) - 40.446° N
+
 
         #####################
         # Object Status Flags
@@ -104,7 +104,7 @@ class MicropyGPS(object):
     ########################################
     @property
     def latitude(self):
-        """Format Latitude Data Correctly"""
+        # Format Latitude Data Correctly
         if self.coord_format == 'dd':
             decimal_degrees = self._latitude[0] + (self._latitude[1] / 60)
             return [decimal_degrees, self._latitude[2]]
@@ -117,7 +117,7 @@ class MicropyGPS(object):
 
     @property
     def longitude(self):
-        """Format Longitude Data Correctly"""
+        # Format Longitude Data Correctly
         if self.coord_format == 'dd':
             decimal_degrees = self._longitude[0] + (self._longitude[1] / 60)
             return [decimal_degrees, self._longitude[2]]
@@ -132,9 +132,7 @@ class MicropyGPS(object):
     # Logging Related Functions
     ########################################
     def start_logging(self, target_file, mode="append"):
-        """
-        Create GPS data log object
-        """
+        # Create GPS data log object
         # Set Write Mode Overwrite or Append
         mode_code = 'w' if mode == 'new' else 'a'
 
@@ -148,9 +146,7 @@ class MicropyGPS(object):
         return True
 
     def stop_logging(self):
-        """
-        Closes the log file handler and disables further logging
-        """
+        # Closes the log file handler and disables further logging
         try:
             self.log_handle.close()
         except AttributeError:
@@ -161,8 +157,7 @@ class MicropyGPS(object):
         return True
 
     def write_log(self, log_string):
-        """Attempts to write the last valid NMEA sentence character to the active file handler
-        """
+        # Attempts to write the last valid NMEA sentence character to the active file handler
         try:
             self.log_handle.write(log_string)
         except TypeError:
@@ -173,9 +168,8 @@ class MicropyGPS(object):
     # Sentence Parsers
     ########################################
     def gprmc(self):
-        """Parse Recommended Minimum Specific GPS/Transit data (RMC)Sentence.
-        Updates UTC timestamp, latitude, longitude, Course, Speed, Date, and fix status
-        """
+        # Parse Recommended Minimum Specific GPS/Transit data (RMC)Sentence.
+        # Updates UTC timestamp, latitude, longitude, Course, Speed, Date, and fix status
 
         # UTC Timestamp
         try:
@@ -269,8 +263,8 @@ class MicropyGPS(object):
         return True
 
     def gpgll(self):
-        """Parse Geographic Latitude and Longitude (GLL)Sentence. Updates UTC timestamp, latitude,
-        longitude, and fix status"""
+        # Parse Geographic Latitude and Longitude (GLL)Sentence. Updates UTC timestamp, latitude,
+        # longitude, and fix status
 
         # UTC Timestamp
         try:
@@ -328,7 +322,7 @@ class MicropyGPS(object):
         return True
 
     def gpvtg(self):
-        """Parse Track Made Good and Ground Speed (VTG) Sentence. Updates speed and course"""
+        # Parse Track Made Good and Ground Speed (VTG) Sentence. Updates speed and course"""
         try:
             course = float(self.gps_segments[1])
             spd_knt = float(self.gps_segments[5])
@@ -341,8 +335,8 @@ class MicropyGPS(object):
         return True
 
     def gpgga(self):
-        """Parse Global Positioning System Fix Data (GGA) Sentence. Updates UTC timestamp, latitude, longitude,
-        fix status, satellites in use, Horizontal Dilution of Precision (HDOP), altitude, geoid height and fix status"""
+        # Parse Global Positioning System Fix Data (GGA) Sentence. Updates UTC timestamp, latitude, longitude,
+        # fix status, satellites in use, Horizontal Dilution of Precision (HDOP), altitude, geoid height and fix status"""
 
         try:
             # UTC Timestamp
@@ -421,9 +415,9 @@ class MicropyGPS(object):
         return True
 
     def gpgsa(self):
-        """Parse GNSS DOP and Active Satellites (GSA) sentence. Updates GPS fix type, list of satellites used in
-        fix calculation, Position Dilution of Precision (PDOP), Horizontal Dilution of Precision (HDOP), Vertical
-        Dilution of Precision, and fix status"""
+        # Parse GNSS DOP and Active Satellites (GSA) sentence. Updates GPS fix type, list of satellites used in
+        # fix calculation, Position Dilution of Precision (PDOP), Horizontal Dilution of Precision (HDOP), Vertical
+        # Dilution of Precision, and fix status"""
 
         # Fix Type (None,2D or 3D)
         try:
@@ -467,8 +461,8 @@ class MicropyGPS(object):
         return True
 
     def gpgsv(self):
-        """Parse Satellites in View (GSV) sentence. Updates number of SV Sentences,the number of the last SV sentence
-        parsed, and data on each satellite present in the sentence"""
+        # Parse Satellites in View (GSV) sentence. Updates number of SV Sentences,the number of the last SV sentence
+        # parsed, and data on each satellite present in the sentence"""
         try:
             num_sv_sentences = int(self.gps_segments[1])
             current_sv_sentence = int(self.gps_segments[2])
@@ -537,7 +531,7 @@ class MicropyGPS(object):
     ##########################################
 
     def new_sentence(self):
-        """Adjust Object Flags in Preparation for a New Sentence"""
+        # Adjust Object Flags in Preparation for a New Sentence"""
         self.gps_segments = ['']
         self.active_segment = 0
         self.crc_xor = 0
@@ -546,9 +540,9 @@ class MicropyGPS(object):
         self.char_count = 0
 
     def update(self, new_char):
-        """Process a new input char and updates GPS object if necessary based on special characters ('$', ',', '*')
-        Function builds a list of received string that are validate by CRC prior to parsing by the  appropriate
-        sentence function. Returns sentence type on successful parse, None otherwise"""
+        # Process a new input char and updates GPS object if necessary based on special characters ('$', ',', '*')
+        # Function builds a list of received string that are validate by CRC prior to parsing by the  appropriate
+        # sentence function. Returns sentence type on successful parse, None otherwise"""
 
         valid_sentence = False
 
@@ -625,8 +619,8 @@ class MicropyGPS(object):
         return None
 
     def new_fix_time(self):
-        """Updates a high resolution counter with current time when fix is updated. Currently only triggered from
-        GGA, GSA and RMC sentences"""
+        # Updates a high resolution counter with current time when fix is updated. Currently only triggered from
+        # GGA, GSA and RMC sentences"""
         try:
             self.fix_time = utime.ticks_ms()
         except NameError:
@@ -638,25 +632,21 @@ class MicropyGPS(object):
     #########################################
 
     def satellite_data_updated(self):
-        """
-        Checks if the all the GSV sentences in a group have been read, making satellite data complete
-        :return: boolean
-        """
+        # Checks if the all the GSV sentences in a group have been read, making satellite data complete
+        # :return: boolean
         if self.total_sv_sentences > 0 and self.total_sv_sentences == self.last_sv_sentence:
             return True
         else:
             return False
 
     def satellites_visible(self):
-        """
-        Returns a list of of the satellite PRNs currently visible to the receiver
-        :return: list
-        """
+        # Returns a list of of the satellite PRNs currently visible to the receiver
+        # :return: list
         return list(self.satellite_data.keys())
 
     def time_since_fix(self):
-        """Returns number of millisecond since the last sentence with a valid fix was parsed. Returns 0 if
-        no fix has been found"""
+        # Returns number of millisecond since the last sentence with a valid fix was parsed. Returns 0 if
+        # no fix has been found"""
 
         # Test if a Fix has been found
         if self.fix_time == 0:
@@ -672,10 +662,8 @@ class MicropyGPS(object):
         return current
 
     def compass_direction(self):
-        """
-        Determine a cardinal or inter-cardinal direction based on current course.
-        :return: string
-        """
+        # Determine a cardinal or inter-cardinal direction based on current course.
+        # :return: string
         # Calculate the offset for a rotated compass
         if self.course >= 348.75:
             offset_course = 360 - self.course
@@ -690,10 +678,8 @@ class MicropyGPS(object):
         return final_dir
 
     def latitude_string(self):
-        """
-        Create a readable string of the current latitude data
-        :return: string
-        """
+        # Create a readable string of the current latitude data
+        # :return: string
         if self.coord_format == 'dd':
             formatted_latitude = self.latitude
             lat_string = str(formatted_latitude[0]) + '° ' + str(self._latitude[2])
@@ -705,10 +691,8 @@ class MicropyGPS(object):
         return lat_string
 
     def longitude_string(self):
-        """
-        Create a readable string of the current longitude data
-        :return: string
-        """
+        # Create a readable string of the current longitude data
+        # :return: string
         if self.coord_format == 'dd':
             formatted_longitude = self.longitude
             lon_string = str(formatted_longitude[0]) + '° ' + str(self._longitude[2])
@@ -720,11 +704,9 @@ class MicropyGPS(object):
         return lon_string
 
     def speed_string(self, unit='kph'):
-        """
-        Creates a readable string of the current speed data in one of three units
-        :param unit: string of 'kph','mph, or 'knot'
-        :return:
-        """
+        # Creates a readable string of the current speed data in one of three units
+        # :param unit: string of 'kph','mph, or 'knot'
+        # :return:
         if unit == 'mph':
             speed_string = str(self.speed[1]) + ' mph'
 
@@ -741,16 +723,14 @@ class MicropyGPS(object):
         return speed_string
 
     def date_string(self, formatting='s_mdy', century='20'):
-        """
-        Creates a readable string of the current date.
-        Can select between long format: Januray 1st, 2014
-        or two short formats:
-        11/01/2014 (MM/DD/YYYY)
-        01/11/2014 (DD/MM/YYYY)
-        :param formatting: string 's_mdy', 's_dmy', or 'long'
-        :param century: int delineating the century the GPS data is from (19 for 19XX, 20 for 20XX)
-        :return: date_string  string with long or short format date
-        """
+        # Creates a readable string of the current date.
+        # Can select between long format: Januray 1st, 2014
+        # or two short formats:
+        # 11/01/2014 (MM/DD/YYYY)
+        # 01/11/2014 (DD/MM/YYYY)
+        # :param formatting: string 's_mdy', 's_dmy', or 'long'
+        # :param century: int delineating the century the GPS data is from (19 for 19XX, 20 for 20XX)
+        # :return: date_string  string with long or short format date
 
         # Long Format Januray 1st, 2014
         if formatting == 'long':
