@@ -15,6 +15,9 @@ Enable Interface options VNC, I2C, SPI, Serial, etc.
 ```
 apt-get install xrdp
 ```
+We also want to install some CircuitPython Adafruit libraries, since we're gonna use a lot of sensors from Adafruit, because they make their own drivers for them.
+Follow the instructions here:
+https://learn.adafruit.com/circuitpython-on-raspberrypi-linux/installing-circuitpython-on-raspberry-pi
 
 ## Feather M0 Arduino IDE & Transmit/Receive Setup:
 Download the Arduino IDE, go to preferences and add the URL below for Additional Boards Manager (click on the small icon on the side):
