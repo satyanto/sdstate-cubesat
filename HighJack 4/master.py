@@ -2,6 +2,7 @@ from smbus import SMBus
 import time
 import csv
 import serial
+#import thread
 
 LIS3DH = False
 MPL3115A2 = False
@@ -9,6 +10,15 @@ GPS = False
 
 deg = u'\N{DEGREE SIGN}'
 apo = u"\u0027" #apostrophe
+
+port = "/dev/ttyACM0"   ## USB Serial Port
+serialport = serial.Serial(port,
+    baudrate=9600,
+    parity=serial.PARITY_NONE,
+    stopbits=serial.STOPBITS_ONE,
+    bytesize=serial.EIGHTBITS,
+    timeout = 1
+)
 
 try:    ## Import LIS3DH Accelerometer
     import lib_LIS3DH
@@ -90,19 +100,31 @@ with open(csv_filename, 'w') as dataInit:
 while True:
     if (MPL3115A2==True):
         MPL3115A2_Data = lib_MPL3115A2.Get_Data()
+        MPL3115A2_Packet = "kPa:%.2f, C:%.1f, approx m:%.1d" % (MPL3115A2_Data[0], MPL3115A2_Data[1], MPL3115A2_Data[2])
     else:
         MPL3115A2_Data = [0, 0, 0, 0]
+        MPL3115A2_Packet = ""
 
     if (LIS3DH==True):
         LIS3DH_Data = lib_LIS3DH.Get_Data()
+        LIS3DH_Packet = ""
     else:
         LIS3DH_Data = [0, 0, 0]
+        LIS3DH_Packet = ""
 
     if (GPS==True):
         GPS_Data = lib_GPS.Get_Data()
+        GPS_Packet_fix = 'gps-fix:'+str(GPS_Data[1])+', '
+        GPS_Packet_lat = 'lat:'+str(GPS_Data[3][0])+''+deg.encode("utf8")+''+str(GPS_Data[3][1])+''+apo.encode("utf8")+''+str(GPS_Data[3][2])+', '
+        GPS_Packet_lon = 'lon:'+str(GPS_Data[4][0])+''.deg.encode("utf8")+''+Str(GPS_Data[4][1])+''+apo.encode("utf8")+''+str(GPS_Data[4][2])+', '
+        GPS_Packet_altitude = 'm:'+str(GPS_Data[5])+', '
+        GPS_Packet_speed = 'kph:'+str(GPS_Data[6])+''
+        GPS_Packet = GPS_Packet_fix + GPS_Packet_lat + GPS_Packet_lon + GPS_Packet_altitude + GPS_Packet_speed
     else:
-        print('AAAAAAH!!!')
-        #GPS_Data = [[0,0,0], 0, 0, [0,0,0], [0,0,0], 0, 0]
+        GPS_Data = [[0,0,0], 0, 0, [0,0,0], [0,0,0], 0, 0]
+        GPS_Packet = ""
+
+    datapacket =
 
     with open(csv_filename, 'a') as csvFile:
          dataLogger = csv.writer(csvFile, delimiter=',', lineterminator='\n')
@@ -127,4 +149,17 @@ while True:
                             str(GPS_Data[5]),           # altitude m
                             str(GPS_Data[6]),           # speed
                             ])
-    #time.sleep(0.75)
+
+    serialdata = serialport.readline()
+    serialdatacheck = serialdata[ : 2]
+    if (serialdatacheck=="XC"):    ## Special Command Mode
+        if (serialdata=="XC test"):
+            serialport.write("Received Command - Test")
+        elseif (serialdata == "XC hello"):
+            serialport.write("Hello back to you!")
+        else
+            serialport.write("Unknown Command")
+
+    Packet = ''+MPL3115A2_Packet+', '+LIS3DH_Packet+', '+GPS_Packet+''
+    serialport.write(Packet)
+    time.sleep(0.75)
