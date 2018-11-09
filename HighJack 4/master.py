@@ -98,7 +98,7 @@ while True:
     if (GPS==True):
         GPS_Data = lib_GPS.Get_Data()
     else:
-        GPS_Data = [[0,0,0], 0, 0, [0,0,0], [0,0,0], 0, 0]
+        #GPS_Data = [[0,0,0], 0, 0, [0,0,0], [0,0,0], 0, 0]
 
     with open(csv_filename, 'a') as csvFile:
          dataLogger = csv.writer(csvFile, delimiter=',', lineterminator='\n')

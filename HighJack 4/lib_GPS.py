@@ -9,11 +9,6 @@ import threading
 timezone_offset = -6
 
 gps = MicropyGPS(timezone_offset)
-srl = serial.Serial(
-    port='/dev/ttyS0',
-    baudrate=9600,
-    )
-counter = 0
 
 def Update_Data():
     while True:
@@ -35,10 +30,16 @@ def Get_Data():
 
         return timestamp, fixtype, satellites, latitude, longitude, altitude, speed
     except IOError:
-        print('GPS Connection Error')
-        return [0,0,0], 0, 0, [0,0,0], [0,0,0], 0, 0
+        #print('GPS Connection Error')
+        #return [0,0,0], 0, 0, [0,0,0], [0,0,0], 0, 0
 
 if __name__ == "__main__":
     Get_Data()
+    srl = serial.Serial(
+        port='/dev/ttyS0',
+        baudrate=9600,
+        )
+    counter = 0
+
     thread = threading.Thread(target=Update_Data)
     thread.start()
