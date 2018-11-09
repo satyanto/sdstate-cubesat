@@ -18,6 +18,7 @@ counter = 0
 def Update_Data():
     while True:
         srlline = srl.readline()
+        print(srlline)
         for iter in srlline:
             gps.update(iter)
 
