@@ -159,5 +159,6 @@ while True:
             serialport.write("Unknown Command")
 
     Packet = ''+MPL3115A2_Packet+', '+LIS3DH_Packet+', '+GPS_Packet+''
+    print(Packet)
     serialport.write(Packet)
     time.sleep(0.75)
