@@ -155,7 +155,7 @@ while True:
             serialport.write("Received Command - Test")
         elif (serialdata == "XC hello"):
             serialport.write("Hello back to you!")
-        else
+        else:
             serialport.write("Unknown Command")
 
     Packet = ''+MPL3115A2_Packet+', '+LIS3DH_Packet+', '+GPS_Packet+''
