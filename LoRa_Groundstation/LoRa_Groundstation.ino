@@ -82,6 +82,21 @@ void loop() {
     if(rf95.recv(buf, &len))
     {
       String msg = (char*)buf;
+      String pressure = msg.substring(0,4);
+      String temperature = msg.substring(4,7);
+      String approxm = msg.substring(7,12);
+      String gpsfix = msg.substring(12,13);
+      String gpsaltitude = msg.substring(13,18);
+      String gpsspeed = msg.substring(18,20);
+      String gpslatdeg = msg.substring(20,22);
+      String gpslatmin = msg.substring(22,24);
+      String gpslatdir = msg.substring(24,25);
+      String gpslondeg = msg.substring(25,27);
+      String gpslonmin = msg.substring(27,29);
+      String gpslondir = msg.substring(29,30);
+
+      String Parsed = "Pressure: " + pressure + ", Temperature: " + temperature + ", ApproxAlt: " + approxm + ", GPSFix: " + gpsfix + ", GPSaltitude: " + gpsaltitude + ", GPSspeed: " + gpsspeed + ", GPSlatitude: " + gpslatdeg + "" + char(223) +"" + gpslatmin + "" + char(39) +"" + gpslatdir + ", " + "GPSlongitude: " + gpslondeg + "" + char(223) + "" + gpslonmin + "" + char(39) + "" + gpslondir + "";     
+      Serial.println(Parsed);
       Serial.println(msg);
       Serial.print("RSSI: ");
       Serial.println(rf95.lastRssi(), DEC);
