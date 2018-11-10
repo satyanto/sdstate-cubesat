@@ -27,6 +27,8 @@ RH_RF95 rf95(RFM95_CS, RFM95_INT);
 String readString;
 int PacketLength = 40;
 int PacketCounter = 0;
+String PacketString;
+char packet;
 
 void setup() {
   pinMode(RFM95_RST, OUTPUT);
@@ -50,7 +52,8 @@ void setup() {
 
 void loop() {
   delay(500);
-  
+
+  /*  Keyboard input command check */
   while (Serial.available()) {          /*  Check for anything on the serial port */
     delay(1);
     char c = Serial.read();
@@ -68,17 +71,25 @@ void loop() {
     rf95.waitPacketSent();
     readString = "";
   }
-  
+
+  /* Check any incoming messages */
   if (rf95.available())
   {                                           /* If there is an incoming message, print in serial port */
     uint8_t buf[RH_RF95_MAX_MESSAGE_LEN];
     uint8_t len = sizeof(buf);
 
-    if(rf95.recv(buf, &len))
+    /* HighJack 4 Specialized Packet Parser */
+    if(rf95.recv(msg, &length))
+    {
+      packet = msg
+      PacketString = String(packet)
+    }
+
+    /*if(rf95.recv(buf, &len))
     {
       Serial.println((char*)buf);
       Serial.print("RSSI: ");
       Serial.println(rf95.lastRssi(), DEC);
-    }
+    }*/
   }
 }

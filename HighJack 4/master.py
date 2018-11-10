@@ -171,6 +171,7 @@ while True:
 
     serialdata = serialport.readline()
     serialdatacheck = serialdata[ : 2]
+    print(serialdatacheck)
     # Check first 2 characters of serial line. If 'XC' then does not send data and executes a given command, so to not congest serial line.
     if (serialdatacheck=="XC"):    ## Special Command Mode
         if (serialdata=="XC test"):
@@ -184,8 +185,8 @@ while True:
             time.sleep(0.25)
     else:   #If anything else other than 'XC' code, continue sending data packet
         Packet = ''+MPL3115A2_Packet+''+GPS_Packet+''+LIS3DH_Packet+''
-        print(Packet)
+        #print(Packet)
         serialport.write(Packet)
-        print('Serialport written')
+        #print('Serialport written')
         time.sleep(0.25)
     time.sleep(0.75)
