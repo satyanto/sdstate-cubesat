@@ -79,17 +79,12 @@ void loop() {
     uint8_t len = sizeof(buf);
 
     /* HighJack 4 Specialized Packet Parser */
-    if(rf95.recv(msg, &length))
+    if(rf95.recv(buf, &len))
     {
-      packet = msg
-      PacketString = String(packet)
-    }
-
-    /*if(rf95.recv(buf, &len))
-    {
-      Serial.println((char*)buf);
+      String msg = (char*)buf;
+      Serial.println(msg);
       Serial.print("RSSI: ");
       Serial.println(rf95.lastRssi(), DEC);
-    }*/
+    }
   }
 }

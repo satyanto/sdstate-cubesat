@@ -170,7 +170,7 @@ while True:
                             ])
 
     serialdata = serialport.readline()
-    serialdatacheck = serialdata[ : 2]
+    serialdatacheck = serialdata[0 : 2]
     print(serialdatacheck)
     # Check first 2 characters of serial line. If 'XC' then does not send data and executes a given command, so to not congest serial line.
     if (serialdatacheck=="XC"):    ## Special Command Mode

@@ -77,8 +77,8 @@ void loop() {
       if (rf95.recv(buf, &len))
       {
         Serial.print((char*)buf);
-        Serial.print("RSSI: ");
-        Serial.println(rf95.lastRssi(), DEC);
+        /*Serial.print("RSSI: ");    /* The balloon LoRa doesn't need to report the RSSI to the rasperry pi...
+        Serial.println(rf95.lastRssi(), DEC);*/
       }
     }
 
