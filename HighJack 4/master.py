@@ -183,7 +183,7 @@ while True:
             serialport.write("Unknown Command")
             time.sleep(0.25)
     else:   #If anything else other than 'XC' code, continue sending data packet
-        Packet = ''+MPL3115A2_Packet+''+GPS_Packet+''+LIS3DH_Packet''
+        Packet = ''+MPL3115A2_Packet+''+GPS_Packet+''+LIS3DH_Packet+''
         print(Packet)
         serialport.write(Packet)
         print('Serialport written')
