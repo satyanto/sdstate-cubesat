@@ -124,8 +124,6 @@ while True:
         GPS_Data = [[0,0,0], 0, 0, [0,0,0], [0,0,0], 0, 0]
         GPS_Packet = ""
 
-    datapacket =
-
     with open(csv_filename, 'a') as csvFile:
          dataLogger = csv.writer(csvFile, delimiter=',', lineterminator='\n')
          dataLogger.writerow([time.strftime('%m/%d/%Y %H:%M:%S%z'),
