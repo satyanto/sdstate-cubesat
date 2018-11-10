@@ -101,7 +101,14 @@ with open(csv_filename, 'w') as dataInit:
 while True:
     if (MPL3115A2==True):
         MPL3115A2_Data = lib_MPL3115A2.Get_Data()
-        MPL3115A2_Packet = "kPa:%.2f, C:%.1f, approx m:%.1d" % (MPL3115A2_Data[0], MPL3115A2_Data[1], MPL3115A2_Data[2])
+        #MPL3115A2_Packet = "kPa:%.2f, C:%.1f, approx m:%.1d" % (MPL3115A2_Data[0], MPL3115A2_Data[1], MPL3115A2_Data[2])
+        MPL3115A2_Packet = '{pressure:2.1f}{temperature:=+3.0f}{approxm:5.0f}'.format(
+            pressure = MPL3115A2_Data[0],
+            temperature = MPL3115A2_Data[1],
+            approxm = MPL3115A2_Data[2]
+        )
+        # MPL3115A2_Packet will take up 11 characters.
+        # Saved 5 character spaces for approximate altitude, in case.
     else:
         MPL3115A2_Data = [0, 0, 0, 0]
         MPL3115A2_Packet = ""
@@ -115,12 +122,25 @@ while True:
 
     if (GPS==True):
         GPS_Data = lib_GPS.Get_Data()
-        GPS_Packet_fix = 'gps-fix:'+str(GPS_Data[1])+', '
-        GPS_Packet_lat = 'lat:'+str(GPS_Data[3][0])+''+deg.encode("utf8")+''+str(GPS_Data[3][1])+''+apo.encode("utf8")+''+str(GPS_Data[3][2])+', '
-        GPS_Packet_lon = 'lon:'+str(GPS_Data[4][0])+''+deg.encode("utf8")+''+str(GPS_Data[4][1])+''+apo.encode("utf8")+''+str(GPS_Data[4][2])+', '
-        GPS_Packet_altitude = 'm:'+str(GPS_Data[5])+', '
-        GPS_Packet_speed = 'kph:'+str(GPS_Data[6])+''
-        GPS_Packet = GPS_Packet_fix + GPS_Packet_lat + GPS_Packet_lon + GPS_Packet_altitude + GPS_Packet_speed
+        #GPS_Packet_fix = 'gps-fix:'+str(GPS_Data[1])+', '
+        #GPS_Packet_lat = 'lat:'+str(GPS_Data[3][0])+''+deg.encode("utf8")+''+str(GPS_Data[3][1])+''+apo.encode("utf8")+''+str(GPS_Data[3][2])+', '
+        #GPS_Packet_lon = 'lon:'+str(GPS_Data[4][0])+''+deg.encode("utf8")+''+str(GPS_Data[4][1])+''+apo.encode("utf8")+''+str(GPS_Data[4][2])+', '
+        #GPS_Packet_altitude = 'm:'+str(GPS_Data[5])+', '
+        #GPS_Packet_speed = 'kph:'+str(GPS_Data[6])+''
+        #GPS_Packet = GPS_Packet_fix + GPS_Packet_lat + GPS_Packet_lon + GPS_Packet_altitude + GPS_Packet_speed
+        GPS_Packet = '{fix:d}{altitude:5.0f}{speed:2.0f}{lat_deg:2.0f}{lat_min:2.0f}{lat_dir}{lon_deg:2.0f}{lon_min:2.0f}{lon_dir}'.format(
+            fix = GPS_Data[1],
+            altitude = GPS_Data[5],
+            speed = GPS_Data[6],
+            lat_deg = GPS_Data[3][0],
+            lat_min = GPS_Data[3][1],
+            lat_dir = GPS_Data[3][2],
+            lon_deg = GPS_Data[4][0],
+            lon_min = GPS_Data[4][1],
+            lon_dir = GPS_Data[4][2]
+            )
+        # GPS_Packet will take up 18 characters.
+
     else:
         GPS_Data = [[0,0,0], 0, 0, [0,0,0], [0,0,0], 0, 0]
         GPS_Packet = ""
@@ -151,16 +171,21 @@ while True:
 
     serialdata = serialport.readline()
     serialdatacheck = serialdata[ : 2]
+    # Check first 2 characters of serial line. If 'XC' then does not send data and executes a given command, so to not congest serial line.
     if (serialdatacheck=="XC"):    ## Special Command Mode
         if (serialdata=="XC test"):
             serialport.write("Received Command - Test")
+            time.sleep(0.25)
         elif (serialdata == "XC hello"):
             serialport.write("Hello back to you!")
+            time.sleep(0.25)
         else:
             serialport.write("Unknown Command")
-
-    Packet = ''+MPL3115A2_Packet+', '+LIS3DH_Packet+', '+GPS_Packet+''
-    print(Packet)
-    serialport.write(Packet)
-    print('Serialport written')
+            time.sleep(0.25)
+    else:   #If anything else other than 'XC' code, continue sending data packet
+        Packet = ''+MPL3115A2_Packet+''+GPS_Packet+''+LIS3DH_Packet''
+        print(Packet)
+        serialport.write(Packet)
+        print('Serialport written')
+        time.sleep(0.25)
     time.sleep(0.75)
