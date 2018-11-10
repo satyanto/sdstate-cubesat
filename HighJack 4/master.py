@@ -11,14 +11,15 @@ GPS = False
 deg = u'\N{DEGREE SIGN}'
 apo = u"\u0027" #apostrophe
 
-port = "/dev/ttyACM0"   ## USB Serial Port
-serialport = serial.Serial(port,
+serialport = serial.Serial(
+    port="/dev/ttyACM0",
     baudrate=9600,
     parity=serial.PARITY_NONE,
     stopbits=serial.STOPBITS_ONE,
     bytesize=serial.EIGHTBITS,
     timeout = 1
 )
+serialport.flushInput()
 
 try:    ## Import LIS3DH Accelerometer
     import lib_LIS3DH
