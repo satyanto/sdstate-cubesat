@@ -116,7 +116,7 @@ while True:
         GPS_Data = lib_GPS.Get_Data()
         GPS_Packet_fix = 'gps-fix:'+str(GPS_Data[1])+', '
         GPS_Packet_lat = 'lat:'+str(GPS_Data[3][0])+''+deg.encode("utf8")+''+str(GPS_Data[3][1])+''+apo.encode("utf8")+''+str(GPS_Data[3][2])+', '
-        GPS_Packet_lon = 'lon:'+str(GPS_Data[4][0])+''.deg.encode("utf8")+''+Str(GPS_Data[4][1])+''+apo.encode("utf8")+''+str(GPS_Data[4][2])+', '
+        GPS_Packet_lon = 'lon:'+str(GPS_Data[4][0])+''.deg.encode("utf8")+''+str(GPS_Data[4][1])+''+apo.encode("utf8")+''+str(GPS_Data[4][2])+', '
         GPS_Packet_altitude = 'm:'+str(GPS_Data[5])+', '
         GPS_Packet_speed = 'kph:'+str(GPS_Data[6])+''
         GPS_Packet = GPS_Packet_fix + GPS_Packet_lat + GPS_Packet_lon + GPS_Packet_altitude + GPS_Packet_speed
