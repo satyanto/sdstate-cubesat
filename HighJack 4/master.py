@@ -161,4 +161,5 @@ while True:
     Packet = ''+MPL3115A2_Packet+', '+LIS3DH_Packet+', '+GPS_Packet+''
     print(Packet)
     serialport.write(Packet)
+    print('Serialport written')
     time.sleep(0.75)
