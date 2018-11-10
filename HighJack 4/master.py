@@ -153,7 +153,7 @@ while True:
     if (serialdatacheck=="XC"):    ## Special Command Mode
         if (serialdata=="XC test"):
             serialport.write("Received Command - Test")
-        elseif (serialdata == "XC hello"):
+        elif (serialdata == "XC hello"):
             serialport.write("Hello back to you!")
         else
             serialport.write("Unknown Command")
