@@ -95,7 +95,7 @@ void loop() {
       String gpslonmin = msg.substring(27,29);
       String gpslondir = msg.substring(29,30);
 
-      String Parsed = "Pressure: " + pressure + ", Temperature: " + temperature + ", ApproxAlt: " + approxm + ", GPSFix: " + gpsfix + ", GPSaltitude: " + gpsaltitude + ", GPSspeed: " + gpsspeed + ", GPSlatitude: " + gpslatdeg + "" + char(223) +"" + gpslatmin + "" + char(39) +"" + gpslatdir + ", " + "GPSlongitude: " + gpslondeg + "" + char(223) + "" + gpslonmin + "" + char(39) + "" + gpslondir + "";     
+      String Parsed = "Pressure: " + pressure + ", Temperature: " + temperature + ", ApproxAlt: " + approxm + ", GPSFix: " + gpsfix + ", GPSaltitude: " + gpsaltitude + ", GPSspeed: " + gpsspeed + ", GPSlatitude: " + gpslatdeg + "" + char(176) +"" + gpslatmin + "" + char(39) +"" + gpslatdir + ", " + "GPSlongitude: " + gpslondeg + "" + char(176) + "" + gpslonmin + "" + char(39) + "" + gpslondir + "";     
       Serial.println(Parsed);
       Serial.println(msg);
       Serial.print("RSSI: ");
